@@ -39,4 +39,32 @@ defmodule PetriTest do
     m2 = Petri.fireM(g, A, m)
     assert MapSet.equal?(m2, MapSet.new([P1, P2]))
   end
+
+  test "enablement con lista M={p1,p4}" do
+    f = Petri.ex1l()
+    m = MapSet.new([P1,P4])
+    result = Petri.enablementL(f,m)
+    assert MapSet.equal?(result, MapSet.new([B]))
+  end
+
+  test "enablement con lista M={p1,p2}" do
+    f = Petri.ex1l()
+    m = MapSet.new([P1,P2])
+    result = Petri.enablementL(f,m)
+    assert MapSet.equal?(result, MapSet.new([B,C,D]))
+  end
+
+  test "enablement con mapa M={p1,p4}" do
+    g = Petri.ex1m()
+    m = MapSet.new([P1,P4])
+    result = Petri.enablementM(g,m)
+    assert MapSet.equal?(result, MapSet.new([B]))
+  end
+
+  test "enablement con mapa M={p1,p2}" do
+    g = Petri.ex1m()
+    m = MapSet.new([P1,P2])
+    result = Petri.enablementM(g,m)
+    assert MapSet.equal?(result, MapSet.new([B,C,D]))
+  end
 end

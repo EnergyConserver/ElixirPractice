@@ -84,4 +84,28 @@ defmodule Petri do
       m
     end
   end
+
+  def enablementL(f, m) do
+    transitions =
+      f
+      |> Enum.map(fn [a,b] -> [a,b] end)
+      |> List.flatten()
+      |> Enum.filter(fn x -> x in [A,B,C,D,E] end)
+      |> MapSet.new()
+
+    transitions
+    |> Enum.filter(fn t -> is_enableL(f, t, m) end)
+    |> MapSet.new()
+  end
+
+  def enablementM(g, m) do
+    transitions =
+      g
+      |> Map.keys()
+      |> Enum.filter(fn x -> x in [A,B,C,D,E] end)
+
+    transitions
+    |> Enum.filter(fn t -> is_enableM(g, t, m) end)
+    |> MapSet.new()
+  end
 end
