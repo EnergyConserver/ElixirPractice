@@ -47,4 +47,19 @@ defmodule Automata do
 
         {q_prime, sigma, delta_prime, [q0], f_prime}
     end
+
+    def e_closure({_q, _sigma, delta, _q0, _f}, states) do
+        traverse_epsilon(delta, states, states)
+        |> Enum.uniq()
+        |> Enum.sort()
+    end
+
+    defp traverse_epsilon(_delta, [], visited), do: visited
+
+    defp traverse_epsilon(delta, [current | rest], visited) do
+        neighbors = Map.get(delta, {current, :epsilon}, [])
+        new =
+            Enum.filter(neighbors, fn n -> n not in visited end)
+            traverse_epsilon(delta, rest ++ new, visited ++ new)
+    end
 end

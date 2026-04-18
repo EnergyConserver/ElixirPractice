@@ -59,4 +59,32 @@ defmodule AutomataTest do
         ]
       }
   end
+
+  test "epsilon closure simple chain" do
+    automata = {
+      [:Q0, :Q1, :Q2],
+      [:a, :b],
+      %{
+        {:Q0, :epsilon} => [:Q1],
+        {:Q1, :epsilon} => [:Q2]
+      },
+      :Q0,
+      [:Q2]
+    }
+    assert Automata.e_closure(automata, [:Q0]) == [:Q0, :Q1, :Q2]
+  end
+
+  test "epsilon closure with cycle" do
+    automata = {
+      [:Q0, :Q1],
+      [:a],
+      %{
+        {:Q0, :epsilon} => [:Q1],
+        {:Q1, :epsilon} => [:Q0]
+      },
+      :Q0,
+      []
+    }
+    assert Automata.e_closure(automata, [:Q0]) == [:Q0, :Q1]
+  end
 end
