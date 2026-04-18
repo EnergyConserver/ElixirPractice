@@ -87,4 +87,36 @@ defmodule AutomataTest do
     }
     assert Automata.e_closure(automata, [:Q0]) == [:Q0, :Q1]
   end
+
+  test "Determinacion of non-deterministic automata with epsilon transitions" do
+    non_automata = Automata.example_nfa2()
+    edetermine_automata = Automata.e_determinize(non_automata)
+    assert edetermine_automata ==
+      {
+        [
+          [:Q0, :Q1, :Q2, :Q3, :Q7],
+          [:Q1, :Q2, :Q3, :Q5, :Q6, :Q7],
+          [:Q1, :Q2, :Q3, :Q4, :Q6, :Q7, :Q8],
+          [:Q1, :Q2, :Q3, :Q5, :Q6, :Q7, :Q10],
+          [:Q1, :Q2, :Q3, :Q5, :Q6, :Q7, :Q9]
+        ],
+        [:a, :b],
+        %{
+          {[:Q0, :Q1, :Q2, :Q3, :Q7], :a} => [:Q1, :Q2, :Q3, :Q4, :Q6, :Q7, :Q8],
+          {[:Q0, :Q1, :Q2, :Q3, :Q7], :b} => [:Q1, :Q2, :Q3, :Q5, :Q6, :Q7],
+          {[:Q1, :Q2, :Q3, :Q4, :Q6, :Q7, :Q8], :a} => [:Q1, :Q2, :Q3, :Q4, :Q6, :Q7, :Q8],
+          {[:Q1, :Q2, :Q3, :Q4, :Q6, :Q7, :Q8], :b} => [:Q1, :Q2, :Q3, :Q5, :Q6, :Q7, :Q9],
+          {[:Q1, :Q2, :Q3, :Q5, :Q6, :Q7], :a} => [:Q1, :Q2, :Q3, :Q4, :Q6, :Q7, :Q8],
+          {[:Q1, :Q2, :Q3, :Q5, :Q6, :Q7], :b} => [:Q1, :Q2, :Q3, :Q5, :Q6, :Q7],
+          {[:Q1, :Q2, :Q3, :Q5, :Q6, :Q7, :Q9], :a} => [:Q1, :Q2, :Q3, :Q4, :Q6, :Q7, :Q8],
+          {[:Q1, :Q2, :Q3, :Q5, :Q6, :Q7, :Q9], :b} => [:Q1, :Q2, :Q3, :Q5, :Q6, :Q7, :Q10],
+          {[:Q1, :Q2, :Q3, :Q5, :Q6, :Q7, :Q10], :a} => [:Q1, :Q2, :Q3, :Q4, :Q6, :Q7, :Q8],
+          {[:Q1, :Q2, :Q3, :Q5, :Q6, :Q7, :Q10], :b} => [:Q1, :Q2, :Q3, :Q5, :Q6, :Q7]
+        },
+        [:Q0, :Q1, :Q2, :Q3, :Q7],
+        [
+          [:Q1, :Q2, :Q3, :Q5, :Q6, :Q7, :Q10]
+        ]
+      }
+  end
 end
