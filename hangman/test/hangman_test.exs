@@ -16,7 +16,6 @@ defmodule HangmanTest do
     assert {"hangman", "ah", "", 9} = {"hangman", "", "", 9} |> Hangman.score_guess("a") |> Hangman.score_guess("h")
   end
 
-  @tag :skip
   test "Works with 'hangman' and three correct letters" do
     Enum.map(1..5, fn _ ->
       seq = Enum.take_random(~w[h a n g m], 3)
@@ -25,7 +24,6 @@ defmodule HangmanTest do
     end)
   end
 
-  @tag :skip
   test "Works with 'hangman'; correct and incorrect letters" do
     assert {"hangman", "ha", "x", 8} = {"hangman", "", "", 9} |> Hangman.score_guess("h") |> Hangman.score_guess("a") |> Hangman.score_guess("x")
     assert {"hangman", "ng", "w", 8} = {"hangman", "", "", 9} |> Hangman.score_guess("n") |> Hangman.score_guess("w") |> Hangman.score_guess("g")
