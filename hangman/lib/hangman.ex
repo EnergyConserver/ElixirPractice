@@ -1,5 +1,5 @@
 defmodule Hangman do
-  def score_guess(_game, guess) do
-    {"hangman", guess, "", 9}
+  def score_guess({secret, correct, wrong, tries}, guess) do
+    {secret, correct<>guess, wrong, tries}
   end
 end
