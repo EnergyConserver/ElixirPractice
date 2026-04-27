@@ -36,7 +36,6 @@ defmodule HangmanTest do
     assert {"hangman", "ah", "y", 8} = {"hangman", "", "", 9} |> Hangman.score_guess("y") |> Hangman.score_guess("a") |> Hangman.score_guess("h") |> Hangman.score_guess("a")
   end
 
-  @tag :skip
   test "Works with 'hangman' and handles end of game" do
     assert {"hangman", "", "bcdefijkl", 0} = {"hangman", "", "bcdefijkl", 0} |> Hangman.score_guess("h")
     assert {"hangman", "a", "bcefijkl", 0} = {"hangman", "a", "bcefijkl", 0} |> Hangman.score_guess("n") |> Hangman.score_guess("w")
