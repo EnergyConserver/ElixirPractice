@@ -1,13 +1,10 @@
 defmodule Hangman do
-  def score_guess({secret, correct, wrong, tries}, guess) do
-    if String.contains?(correct, guess) or String.contains?(wrong, guess) do
-      {secret, correct, wrong, tries}
-    else
-      if String.contains?(secret, guess) do
-        {secret, correct<>guess, wrong, tries}
-      else
-        {secret, correct, wrong<>guess, tries-1}
-      end
+  def score_guess({secret, correct, wrong, tries} = game, guess) do
+    cond do
+      secret =~ guess and correct =~ guess -> game
+      secret =~ guess -> {secret, correct<>guess, wrong, tries}
+      wrong =~ guess -> game
+      true -> {secret, correct, wrong<>guess, tries-1}
     end
   end
 end
