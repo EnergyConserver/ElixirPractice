@@ -30,7 +30,6 @@ defmodule HangmanTest do
     assert {"hangman", "ah", "y", 8} = {"hangman", "", "", 9} |> Hangman.score_guess("y") |> Hangman.score_guess("a") |> Hangman.score_guess("h")
   end
 
-  @tag :skip
   test "Works with 'hangman'; correct, incorrect and duplicate letters" do
     assert {"hangman", "ha", "x", 8} = {"hangman", "", "", 9} |> Hangman.score_guess("h") |> Hangman.score_guess("a") |> Hangman.score_guess("x") |> Hangman.score_guess("h")
     assert {"hangman", "ng", "w", 8} = {"hangman", "", "", 9} |> Hangman.score_guess("n") |> Hangman.score_guess("w") |> Hangman.score_guess("w") |> Hangman.score_guess("g")
