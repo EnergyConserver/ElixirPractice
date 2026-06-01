@@ -8,7 +8,8 @@ defmodule Tablature do
       Regex.scan(~r/\d+/, notes, return: :index)
       |> Enum.map(fn [{i, l}] -> {i, s <> String.slice(notes, i, l)} end)
     end)
-    |> Enum.sort_by(&elem(&1, 0))
-    |> Enum.map_join(" ", &elem(&1, 1))
+    |> Enum.group_by(&elem(&1, 0), &elem(&1, 1))
+    |> Enum.sort_by(fn {pos, _} -> pos end)
+    |> Enum.map_join(" ", fn {_, notes} -> Enum.join(notes, "/") end)
   end
 end
